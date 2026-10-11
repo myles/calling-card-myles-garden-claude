@@ -1,7 +1,81 @@
 ---
+import Ivy from "@/components/Ivy.astro";
+import Landscape from "@/components/Landscape.astro";
+import card from "@/data/card";
 import Layout from "@/layouts/Layout.astro";
+import { toDisplayUrl } from "@myles-garden/utils";
+
+const linkClass =
+  "underline decoration-sage/60 decoration-wavy underline-offset-4 hover:text-sage-dark dark:hover:text-sage";
 ---
 
-<Layout>
-  <h1>Hello, World!</h1>
+<Layout siteTitle={card.name} siteDescription={card.tagline}>
+  <main class="relative grid min-h-dvh place-items-center overflow-hidden p-6 font-sans text-inkwell sm:p-10 dark:text-parchment">
+    <Landscape />
+
+    <article class="h-card relative w-full max-w-xl">
+      <div class="relative rounded-lg bg-cream-soda/95 shadow-[0_2px_4px_rgb(0_0_0/0.06),0_24px_48px_-16px_rgb(26_24_20/0.45)] backdrop-blur-sm sm:aspect-[1.75] dark:bg-inkwell/90">
+        <div
+          class="pointer-events-none absolute inset-3 rounded-md border border-warm-walnut/40 dark:border-sage/25"
+          aria-hidden="true"
+        ></div>
+
+        <div class="relative flex h-full flex-col justify-between gap-8 px-10 py-12 sm:px-14">
+          <header>
+            <p class="font-handwritten text-lg text-ash dark:text-sage">
+              {card.greeting}
+            </p>
+            <h1 class="p-name mt-1 font-serif text-4xl font-semibold tracking-tight text-sage-dark sm:text-5xl dark:text-sage">
+              <a class="u-url u-uid" href={card.url} rel="me">
+                {card.name}
+              </a>
+            </h1>
+            <p class="p-note mt-3 font-serif text-ash italic dark:text-mist">
+              {card.tagline}
+            </p>
+          </header>
+
+          <footer class="flex flex-col gap-4 text-sm sm:flex-row sm:items-end sm:justify-between">
+            <ul class="space-y-1">
+              <li>
+                <a
+                  class:list={["u-email", linkClass]}
+                  href={`mailto:${card.email}`}
+                  rel="me"
+                >
+                  {card.email}
+                </a>
+              </li>
+              <li>
+                <a class={linkClass} href={card.url}>
+                  {toDisplayUrl(card.url)}
+                </a>
+              </li>
+              {card.links.map(({ label, href, rel }) => (
+                <li>
+                  <a class={linkClass} href={href} rel={rel}>
+                    {label}
+                  </a>
+                </li>
+              ))}
+            </ul>
+
+            <div class="flex flex-col gap-1 sm:items-end">
+              <p class="p-locality text-ash dark:text-mist">{card.location}</p>
+              <a
+                class="font-handwritten text-sage-dark underline-offset-4 hover:underline dark:text-sage"
+                href="/contact.vcf"
+                download
+              >
+                save my contact ❀
+              </a>
+            </div>
+          </footer>
+        </div>
+      </div>
+
+      <Ivy class="absolute -top-4 -left-4 w-40 sm:-top-5 sm:-left-5 sm:w-64" />
+      <Ivy class="absolute -right-4 -bottom-4 w-32 rotate-180 sm:-right-5 sm:-bottom-5 sm:w-52" />
+    </article>
+  </main>
 </Layout>

@@ -1,0 +1,88 @@
+---
+// A wooden garden gate with an arched top, short runs of picket fence and a
+// rose climbing one post, drawn as an SVG group for the Landscape. The origin
+// is the middle of where the gate meets the ground.
+type Props = {
+  x: number;
+  y: number;
+  scale?: number;
+  angle?: number;
+};
+
+const { x, y, scale = 1, angle = 0 } = Astro.props;
+
+// Gate pickets rise towards the middle to form an arch.
+const gatePickets = Array.from({ length: 7 }, (_, index) => {
+  const pickX = -19 + index * 6.3;
+  const top = -34 - 9 * (1 - (pickX / 22) ** 2);
+  return { x: pickX, top };
+});
+
+// Lower fence pickets either side of the gate.
+const fencePickets = [-70, -61, -52, -43, 37, 46, 55, 64];
+
+const picket = (pickX: number, top: number): string =>
+  `M${pickX - 2.2} 0V${top + 3}L${pickX} ${top}l2.2 3V0Z`;
+
+const roses = [
+  { cx: -27, cy: -44, r: 2.6 },
+  { cx: -31, cy: -30, r: 2.2 },
+  { cx: -24, cy: -20, r: 2 },
+];
+const roseLeaves = [
+  { cx: -30, cy: -48, r: 3 },
+  { cx: -24, cy: -38, r: 2.6 },
+  { cx: -32, cy: -24, r: 2.8 },
+  { cx: -26, cy: -12, r: 2.6 },
+  { cx: -31, cy: -6, r: 3 },
+];
+---
+
+<g transform={`translate(${x} ${y}) rotate(${angle}) scale(${scale})`}>
+  <ellipse class="fill-inkwell/10" cx="0" cy="1" rx="78" ry="3"></ellipse>
+
+  <g class="fill-cinema-dusk stroke-inkwell/30" stroke-width="0.6">
+    <rect x="-74" y="-22" width="44" height="3" rx="1"></rect>
+    <rect x="-74" y="-10" width="44" height="3" rx="1"></rect>
+    <rect x="30" y="-22" width="40" height="3" rx="1"></rect>
+    <rect x="30" y="-10" width="40" height="3" rx="1"></rect>
+  </g>
+  <g class="fill-warm-walnut stroke-inkwell/30" stroke-width="0.6">
+    {fencePickets.map((pickX) => (
+      <path d={picket(pickX, -28)} />
+    ))}
+  </g>
+
+  <g class="fill-warm-walnut stroke-inkwell/30" stroke-width="0.6">
+    {gatePickets.map(({ x: pickX, top }) => (
+      <path d={picket(pickX, top)} />
+    ))}
+  </g>
+  <g class="fill-cinema-dusk stroke-inkwell/30" stroke-width="0.6">
+    <rect x="-23" y="-34" width="46" height="4" rx="1"></rect>
+    <rect x="-23" y="-12" width="46" height="4" rx="1"></rect>
+    <path d="M-21-11 19-31 21-29-19-9Z"></path>
+  </g>
+  <circle class="fill-inkwell/60" cx="18" cy="-22" r="1.4"></circle>
+
+  <g class="fill-cinema-dusk stroke-inkwell/30" stroke-width="0.6">
+    <rect x="-30" y="-52" width="6" height="52" rx="1"></rect>
+    <rect x="24" y="-52" width="6" height="52" rx="1"></rect>
+  </g>
+  <g class="fill-warm-walnut stroke-inkwell/30" stroke-width="0.6">
+    <rect x="-31.5" y="-55" width="9" height="4" rx="1.5"></rect>
+    <rect x="22.5" y="-55" width="9" height="4" rx="1.5"></rect>
+  </g>
+
+  <path
+    class="fill-none stroke-sage-dark"
+    d="M-27 0C-33-10-21-18-29-28S-24-44-28-52"
+    stroke-width="1.2"
+  ></path>
+  {roseLeaves.map(({ cx, cy, r }) => (
+    <circle class="fill-sage-dark" cx={cx} cy={cy} r={r} />
+  ))}
+  {roses.map(({ cx, cy, r }) => (
+    <circle class="fill-dusk-rose" cx={cx} cy={cy} r={r} />
+  ))}
+</g>

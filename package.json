@@ -1,19 +1,18 @@
 {
-  "name": "understory",
+  "name": "calling-card",
   "version": "1.0.0",
-  "description": "My opinionated Astro starter. Pre-configured with the packages I reach for on every project.",
+  "description": "Myles Braithwaite's business card on the web.",
   "keywords": [
     "astro",
-    "astro-template",
-    "starter",
-    "tailwindcss",
-    "template"
+    "business-card",
+    "h-card",
+    "tailwindcss"
   ],
   "license": "MIT",
   "author": "Myles Braithwaite <myles@myles.garden> (https://myles.garden)",
   "repository": {
     "type": "git",
-    "url": "https://github.com/myles/understory.git"
+    "url": "https://github.com/myles/calling-card-myles-garden-claude.git"
   },
   "type": "module",
   "scripts": {
@@ -34,6 +33,9 @@
     "preview": "astro preview"
   },
   "dependencies": {
+    "@fontsource-variable/bitter": "^5.3.0",
+    "@fontsource-variable/inter": "^5.3.0",
+    "@fontsource/architects-daughter": "^5.3.0",
     "@myles-garden/styles": "^1.0.1",
     "@myles-garden/utils": "^1.2.0",
     "@mylesb/oxfmt-config": "^1.0.0",

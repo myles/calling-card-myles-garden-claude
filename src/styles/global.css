@@ -1,4 +1,9 @@
 @import "tailwindcss";
 
+/* Typefaces referenced by the design tokens */
+@import "@fontsource-variable/inter";
+@import "@fontsource-variable/bitter";
+@import "@fontsource/architects-daughter";
+
 /* Design tokens and prose utilities */
 @import "@myles-garden/styles";

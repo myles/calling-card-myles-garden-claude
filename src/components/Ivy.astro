@@ -1,0 +1,96 @@
+---
+// A sprig of ivy that climbs along two edges from a corner, drawn in the
+// top-left orientation. Rotate it to dress other corners.
+type Props = {
+  class?: string;
+};
+
+const { class: className } = Astro.props;
+
+type Leaf = {
+  x: number;
+  y: number;
+  angle: number;
+  scale: number;
+  dark: boolean;
+};
+
+// Leaves along the top edge, mirrored down the left edge.
+const topLeaves: Leaf[] = [
+  { x: 22, y: 8, angle: -30, scale: 1.3, dark: true },
+  { x: 44, y: 7, angle: 150, scale: 1.1, dark: false },
+  { x: 68, y: 6, angle: -20, scale: 1.2, dark: false },
+  { x: 92, y: 10, angle: 160, scale: 1, dark: true },
+  { x: 118, y: 14, angle: -40, scale: 0.9, dark: true },
+  { x: 142, y: 16, angle: 140, scale: 0.8, dark: false },
+  { x: 166, y: 17, angle: -25, scale: 0.7, dark: false },
+  { x: 190, y: 13, angle: 150, scale: 0.55, dark: true },
+];
+const leaves: Leaf[] = [
+  ...topLeaves,
+  ...topLeaves.map(({ x, y, angle, scale, dark }) => ({
+    x: y,
+    y: x,
+    angle: 90 - angle,
+    scale,
+    dark: !dark,
+  })),
+];
+
+const flowers = [
+  { x: 14, y: 16, scale: 1.2 },
+  { x: 80, y: 22, scale: 0.8 },
+  { x: 24, y: 96, scale: 0.9 },
+];
+---
+
+<svg
+  class:list={["pointer-events-none overflow-visible", className]}
+  viewBox="0 0 220 220"
+  aria-hidden="true"
+>
+  <defs>
+    <path
+      id="ivy-leaf"
+      d="M0 0C-6-4-12-11-8-18-5-23 0-21 0-16 0-21 5-23 8-18 12-11 6-4 0 0Z"
+    ></path>
+  </defs>
+
+  <g
+    class="fill-none stroke-warm-walnut dark:stroke-sage-dark"
+    stroke-linecap="round"
+  >
+    <path d="M4 4C40 12 70 2 110 14S180 22 214 10" stroke-width="2.5"></path>
+    <path d="M4 4C12 40 2 70 14 110S22 180 10 214" stroke-width="2.5"></path>
+    <path d="M60 6C70 20 64 30 74 38" stroke-width="1.5"></path>
+    <path d="M6 60C20 70 30 64 38 74" stroke-width="1.5"></path>
+  </g>
+
+  {leaves.map(({ x, y, angle, scale, dark }) => (
+    <use
+      href="#ivy-leaf"
+      class:list={[
+        dark ? "fill-sage-dark" : "fill-sage",
+        "stroke-sage-dark/40",
+      ]}
+      stroke-width="0.8"
+      transform={`translate(${x} ${y}) rotate(${angle}) scale(${scale})`}
+    />
+  ))}
+
+  {flowers.map(({ x, y, scale }) => (
+    <g transform={`translate(${x} ${y}) scale(${scale})`}>
+      {[0, 72, 144, 216, 288].map((angle) => (
+        <ellipse
+          class="fill-dusk-rose"
+          cx="0"
+          cy="-4.5"
+          rx="3"
+          ry="4.5"
+          transform={`rotate(${angle})`}
+        />
+      ))}
+      <circle class="fill-honey" r="2.5" />
+    </g>
+  ))}
+</svg>
