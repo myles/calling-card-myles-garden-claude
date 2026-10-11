@@ -1,6 +1,9 @@
 ---
+import SleepingCat from "@/components/SleepingCat.astro";
+
 // A painted backdrop: sky, sun (or moon and stars), clouds, rolling hills with
-// round trees, wildflowers and drifting motes that become fireflies after dark.
+// round trees, wildflowers, a sleeping cat and drifting motes that become
+// fireflies after dark.
 
 // Deterministic pseudo-random numbers, so every build renders the same scene.
 const random = (() => {
@@ -115,6 +118,8 @@ const motes = Array.from({ length: 22 }, () => ({
     {wildflowers.map(({ x, y, r, tone }) => (
       <circle class={tone} cx={x} cy={y} r={r} />
     ))}
+
+    <SleepingCat x={770} y={268} scale={1.4} />
   </svg>
 
   {motes.map(({ left, top, size, duration, delay }) => (
