@@ -1,0 +1,61 @@
+{
+  "name": "understory",
+  "version": "1.0.0",
+  "description": "My opinionated Astro starter. Pre-configured with the packages I reach for on every project.",
+  "keywords": [
+    "astro",
+    "astro-template",
+    "starter",
+    "tailwindcss",
+    "template"
+  ],
+  "license": "MIT",
+  "author": "Myles Braithwaite <myles@myles.garden> (https://myles.garden)",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/myles/understory.git"
+  },
+  "type": "module",
+  "scripts": {
+    "astro": "astro",
+    "build": "astro build",
+    "check": "astro check",
+    "dev": "astro dev",
+    "format": "npm run oxfmt && npm run prettier",
+    "format:write": "npm run oxfmt:write && npm run prettier:write",
+    "lint": "npm run oxlint",
+    "lint:fix": "npm run oxlint:fix",
+    "oxfmt": "oxfmt . --check",
+    "oxfmt:write": "oxfmt . --write",
+    "oxlint": "oxlint .",
+    "oxlint:fix": "oxlint . --fix",
+    "prettier": "prettier --check \"**/*.astro\"",
+    "prettier:write": "prettier --write \"**/*.astro\"",
+    "preview": "astro preview"
+  },
+  "dependencies": {
+    "@myles-garden/styles": "^1.0.1",
+    "@myles-garden/utils": "^1.2.0",
+    "@mylesb/oxfmt-config": "^1.0.0",
+    "@tailwindcss/vite": "^4.3.3",
+    "astro": "^7.3.8",
+    "dotenv": "^18.0.7",
+    "oxfmt": "^0.72.0",
+    "tailwindcss": "^4.3.3"
+  },
+  "devDependencies": {
+    "@astrojs/check": "^0.9.10",
+    "@mylesb/oxlint-config": "^1.0.0",
+    "@mylesb/prettier-config": "^1.1.0",
+    "@types/node": "^26.6.2",
+    "oxlint": "^1.87.0",
+    "prettier": "^3.9.10",
+    "prettier-plugin-astro": "^1.1.1",
+    "prettier-plugin-astro-organize-imports": "^0.4.14",
+    "prettier-plugin-tailwindcss": "^0.8.1",
+    "typescript": "^6.0.3"
+  },
+  "engines": {
+    "node": ">=22.12.0"
+  }
+}
