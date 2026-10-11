@@ -4,24 +4,7 @@ This file provides guidance to coding agents working with code in this repositor
 
 ## What this is
 
-Understory is an Astro starter template, consumed via `npm create astro@latest -- --template myles/understory`. Changes here ship to every project created from it, so keep the baseline minimal and opinionated rather than feature-rich. Node `>=22.12.0`.
-
-## Projects created from this template
-
-`npm create astro` sets the `name` in `package.json` to the new project's directory. If `name` isn't `understory`, this is a derived project and still carries the template's identity. Rename it when the user asks, or offer to when you first notice it.
-
-Derive two forms from the package name: the name itself (`my-site`) and an env prefix in upper snake case (`MY_SITE_`). Then:
-
-1. Rename the `UNDERSTORY_` env prefix to the new prefix in `src/config.ts`, `.env.example` and this file.
-2. Change the default `SITE_TITLE` in `src/config.ts` and `.env.example` from `understory` to the package name.
-3. Run `npm install` to update the `name` in `package-lock.json`. Don't edit it by hand.
-4. In `package.json`, update or remove `repository`, `description` and `keywords` (drop `astro-template`, `starter` and `template`). Reset `version` to `0.0.0` if the user agrees.
-5. Replace `README.md` and the "What this is" section above, which describe the template, not the project.
-6. Run `git grep -i understory` to catch anything left.
-
-Tell the user to rename the variables in their local `.env` and in any hosting provider. Neither is in the repo, and the build silently falls back to defaults when they're missing.
-
-Leave `author` and `LICENSE` alone unless asked.
+A one-page business card site for Myles Braithwaite, built with Astro. The card details (name, tagline, links) live in `src/data/card.ts`, which feeds both the home page and the downloadable vCard at `/contact.vcf`. Node `>=22.12.0`.
 
 ## Commands
 
@@ -67,7 +50,7 @@ Style with the tokens from `@myles-garden/styles` (README in `node_modules/@myle
 - **Typefaces:** `font-sans` (Inter), `font-serif` (Bitter), `font-mono` (JetBrains Mono) and `font-handwritten` (Architects Daughter).
 - **Long-form text:** the package's tuned `prose` utility.
 
-The fonts are optional peers and aren't installed yet, so the tokens currently fall back to system stacks. To load one, install its Fontsource package (`@fontsource-variable/inter`, `@fontsource-variable/bitter`, `@fontsource-variable/jetbrains-mono`, `@fontsource/architects-daughter`) and `@import` it in `src/styles/global.css` between `tailwindcss` and `@myles-garden/styles`. Don't add Google Fonts links or other font sources.
+Inter, Bitter and Architects Daughter are installed and imported in `src/styles/global.css`. To add JetBrains Mono, install `@fontsource-variable/jetbrains-mono` and `@import` it there, between `tailwindcss` and `@myles-garden/styles`. Don't add Google Fonts links or other font sources.
 
 ## Formatting and linting split
 
@@ -83,15 +66,15 @@ Side-effect imports (`import "dotenv/config"`, CSS imports) need an inline `oxli
 
 ## Configuration flow
 
-Site settings come from environment variables prefixed `UNDERSTORY_` (see `.env.example`):
+Site settings come from environment variables prefixed `CALLING_CARD_` (see `.env.example`):
 
 1. `src/config.ts` loads `.env` via `dotenv`, applies defaults, and exports a typed `Config` object (`SITE_URL`, `SITE_TITLE`, `SITE_DESCRIPTION`).
 2. `astro.config.ts` imports it to set `site`.
 3. `src/layouts/Layout.astro` imports it for default `<title>`, description, and the canonical URL (built from `Astro.site` with the trailing slash stripped).
 
-Add new site-wide settings to `Config` in `src/config.ts` rather than reading `process.env` elsewhere. Add a matching `UNDERSTORY_*` line to `.env.example` in the same change — projects created from the template start from that file.
+Add new site-wide settings to `Config` in `src/config.ts` rather than reading `process.env` elsewhere. Add a matching `CALLING_CARD_*` line to `.env.example` in the same change.
 
-Values are read at build time and the site is static, so anything a page renders ships in the HTML. Never put secrets in `UNDERSTORY_*` variables.
+Values are read at build time and the site is static, so anything a page renders ships in the HTML. Never put secrets in `CALLING_CARD_*` variables.
 
 ## Structure
 
